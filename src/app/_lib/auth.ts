@@ -14,12 +14,12 @@ const authConfig: NextAuthConfig = {
   //
   callbacks: {
     // Middleware
-    authorized({ auth, request }) {
+    authorized({ auth }) {
       return !!auth?.user;
     },
 
     // sign in
-    async signIn({ user, account, profile }) {
+    async signIn({ user }) {
       try {
         const existingGuest = await getGuest(user.email);
 
@@ -37,7 +37,7 @@ const authConfig: NextAuthConfig = {
     },
 
     // session
-    async session({ session, user }) {
+    async session({ session }) {
       if (session.user?.email) {
         const guest = await getGuest(session?.user?.email);
 
